@@ -8,6 +8,21 @@ jobs:
     steps:
       - name: First step
         run: echo "event context - ${{ toJSON(github.event) }}"
+      - name: Write summary to actions log
+        uses: actions/github-script@6.1.0
+        with:
+          script: |
+            await core.summary
+            .addHeading('Test Results')
+            .addTable([
+              [{data: 'File', header: true}, {data: 'Result', header: true}],
+              ['foo.js', 'Pass ✅'],
+              ['bar.js', 'Fail ❌'],
+              ['test.js', 'Pass ✅']
+            ])
+            .addLink('View staging deployment!', 'https://github.com')
+            .write()          
+
   hello-world2:
     runs-on: ubuntu-latest
     needs: [hello-world]
