@@ -9,7 +9,7 @@ jobs:
       - name: First step
         run: echo "event context - ${{ toJSON(github.event) }}"
       - name: Write summary to actions log
-        uses: actions/github-script@6.1.0
+        uses: actions/github-script@v6
         with:
           script: |
             await core.summary
