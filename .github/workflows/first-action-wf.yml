@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: First step
-        run: echo "event context" - ${{ github.event }}"
+        run: echo "event context" - ${{ toJSON(github.event) }}
   hello-world2:
     runs-on: ubuntu-latest
     needs: [hello-world]
