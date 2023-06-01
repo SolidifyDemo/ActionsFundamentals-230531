@@ -37,9 +37,27 @@ jobs:
     needs: [build]
     environment: dev
     steps:
-      - name: test
-        run: echo test
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v2.0.8
+      with:
+        name: webapp
+        path: webapp
 
+    - name: Login via Azure CLI
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy web app
+      id: deploywebapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: "actions-demo-230531"
+        package: webapp
+
+    - name: az cli logout
+      run: az logout
+      
   deploy_test:
     name: Deploy to test
     runs-on: ubuntu-latest
