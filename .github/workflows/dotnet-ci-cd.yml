@@ -9,7 +9,7 @@ on:
     
 jobs:
   build:
-    uses: .github/workflows/share-ci.yml@0cc1661
+    uses: ./.github/workflows/share-ci.yml
     
   deploy_dev:
     name: Deploy to dev
